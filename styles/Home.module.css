@@ -322,6 +322,108 @@
   color: #0070f3;
 }
 
+/* Prediction Market Specific Styles */
+.predictionHeader {
+  margin-bottom: 1rem;
+}
+
+.predictionHeader h4 {
+  margin: 0 0 0.5rem 0;
+  color: #000000;
+  font-size: 1.25rem;
+}
+
+.predictionMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+.agentTag, .confidenceTag, .deadlineTag {
+  background: #f0f0f0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+}
+
+.votingSection {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eaeaea;
+}
+
+.voteStats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.positiveVotes, .negativeVotes {
+  flex: 1;
+  min-width: 150px;
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+.positiveVotes {
+  background: rgba(23, 192, 131, 0.1);
+  border: 1px solid rgba(23, 192, 131, 0.3);
+}
+
+.negativeVotes {
+  background: rgba(255, 85, 85, 0.1);
+  border: 1px solid rgba(255, 85, 85, 0.3);
+}
+
+.voteActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.voteButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.positiveVote {
+  background: #17c083;
+  color: white;
+}
+
+.positiveVote:hover {
+  background: #14a872;
+}
+
+.negativeVote {
+  background: #ff5555;
+  color: white;
+}
+
+.negativeVote:hover {
+  background: #e04a4a;
+}
+
+.readMoreLink {
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.readMoreLink:hover {
+  text-decoration: underline;
+}
+
 /* Human and Agent Pages Specific Styles */
 .contentBrowser {
   width: 100%;

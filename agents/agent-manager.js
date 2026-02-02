@@ -88,24 +88,31 @@ class AgentManager {
   }
 
   // agent 偽预测
-  async agentMakePrediction(agentId, subject, timeframe = 'short-term') {
+  async agentMakePrediction(agentId, subject, timeframe = 'short-term', predictionData = null) {
     const agent = this.registry.agents.get(agentId);
     if (!agent) {
       throw new Error(`Agent with ID ${agentId} not found`);
     }
     
-    const prediction = await this.contentGenerator.makePrediction(agent, subject, timeframe);
+    let prediction;
+    if (predictionData) {
+      // If prediction data is provided, use it directly
+      prediction = predictionData;
+    } else {
+      // Otherwise generate prediction using content generator
+      prediction = await this.contentGenerator.makePrediction(agent, subject, timeframe);
+    }
     
     // 在预测频道发布预测
     await this.agentSpeak(
       agentId, 
       'predictions', 
-      `New prediction: "${prediction.prediction}" (Confidence: ${prediction.confidence}%)`, 
+      `New prediction: "${prediction.content || prediction.prediction}" (Confidence: ${prediction.confidence}%)`, 
       'prediction'
     );
     
-    // 保存到数据库
-    await this.databaseService.saveContent(prediction);
+    // 保存到数据库 using the prediction-specific method
+    await this.databaseService.savePrediction(prediction);
     
     return prediction;
   }

@@ -1,4 +1,4 @@
-// Database Service for Multi-Agent System using Supabase
+// Database Service for Prediction Market System using Supabase
 import supabase from '../supabase/config.js';
 
 class DatabaseService {
@@ -142,7 +142,165 @@ class DatabaseService {
     }
   }
 
-  // Content Methods
+  // Prediction Methods
+  async savePrediction(predictionData) {
+    if (!this.connected) {
+      return null;
+    }
+    
+    try {
+      const { data, error } = await supabase
+        .from('content')
+        .insert([{
+          content_id: predictionData.id,
+          agent_id: predictionData.agentId,
+          agent_name: predictionData.agentName,
+          type: 'prediction', // Explicitly set type as prediction
+          topic: predictionData.topic,
+          subject: predictionData.subject,
+          content: predictionData.content,
+          confidence: predictionData.confidence,
+          timeframe: predictionData.timeframe,
+          resolution_date: predictionData.resolutionDate,
+          resolved: predictionData.resolved || false,
+          resolution_outcome: predictionData.resolutionOutcome || null,
+          stake_amount: predictionData.stakeAmount || 0,
+          metadata: predictionData.metadata || {}
+        }])
+        .select()
+        .single();
+      
+      if (error) {
+        console.error('Error saving prediction:', error);
+        return null;
+      }
+      
+      return data;
+    } catch (error) {
+      console.error('Error saving prediction:', error);
+      return null;
+    }
+  }
+
+  async getPredictions(limit = 50, offset = 0, status = null) {
+    if (!this.connected) {
+      return [];
+    }
+    
+    try {
+      let query = supabase
+        .from('content')
+        .select('*')
+        .eq('type', 'prediction')
+        .order('created_at', { ascending: false });
+      
+      if (status === 'open') {
+        query = query.or('resolved.is.null,resolved.eq.false');
+      } else if (status === 'resolved') {
+        query = query.eq('resolved', true);
+      }
+      
+      const { data, error } = await query.range(offset, offset + limit - 1);
+      
+      if (error) {
+        console.error('Error fetching predictions:', error);
+        return [];
+      }
+      
+      return data;
+    } catch (error) {
+      console.error('Error fetching predictions:', error);
+      return [];
+    }
+  }
+
+  // Voting/Betting Methods
+  async placeVote(voteData) {
+    if (!this.connected) {
+      return null;
+    }
+    
+    try {
+      const { data, error } = await supabase
+        .from('votes')
+        .insert([{
+          vote_id: voteData.voteId,
+          content_id: voteData.contentId,
+          voter_id: voteData.voterId,
+          voter_type: voteData.voterType, // 'human' or 'agent'
+          vote_choice: voteData.voteChoice, // 'positive' or 'negative'
+          stake_amount: voteData.stakeAmount,
+          created_at: new Date().toISOString()
+        }])
+        .select()
+        .single();
+      
+      if (error) {
+        console.error('Error placing vote:', error);
+        return null;
+      }
+      
+      return data;
+    } catch (error) {
+      console.error('Error placing vote:', error);
+      return null;
+    }
+  }
+
+  async getVotesForContent(contentId) {
+    if (!this.connected) {
+      return [];
+    }
+    
+    try {
+      const { data, error } = await supabase
+        .from('votes')
+        .select('*')
+        .eq('content_id', contentId)
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        console.error('Error fetching votes:', error);
+        return [];
+      }
+      
+      return data;
+    } catch (error) {
+      console.error('Error fetching votes:', error);
+      return [];
+    }
+  }
+
+  async updatePredictionResolution(predictionId, outcome) {
+    if (!this.connected) {
+      return null;
+    }
+    
+    try {
+      const { data, error } = await supabase
+        .from('content')
+        .update({
+          resolved: true,
+          resolution_outcome: outcome,
+          resolution_date: new Date().toISOString()
+        })
+        .eq('content_id', predictionId)
+        .select()
+        .single();
+      
+      if (error) {
+        console.error('Error updating prediction resolution:', error);
+        return null;
+      }
+      
+      return data;
+    } catch (error) {
+      console.error('Error updating prediction resolution:', error);
+      return null;
+    }
+  }
+
+  // Content Methods (for articles/reasoning)
   async saveContent(contentData) {
     if (!this.connected) {
       return null;
@@ -155,12 +313,13 @@ class DatabaseService {
           content_id: contentData.id,
           agent_id: contentData.agentId,
           agent_name: contentData.agentName,
-          type: contentData.type,
+          type: contentData.type || 'article', // Default to article
           topic: contentData.topic,
           subject: contentData.subject,
           content: contentData.content,
           confidence: contentData.confidence,
           timeframe: contentData.timeframe,
+          related_prediction_id: contentData.relatedPredictionId, // Link to associated prediction
           metadata: contentData.metadata || {}
         }])
         .select()
@@ -178,7 +337,7 @@ class DatabaseService {
     }
   }
 
-  async getContent(limit = 50, offset = 0, type = null) {
+  async getContent(limit = 50, offset = 0, type = null, relatedPredictionId = null) {
     if (!this.connected) {
       return [];
     }
@@ -188,6 +347,10 @@ class DatabaseService {
       
       if (type) {
         query = query.eq('type', type);
+      }
+      
+      if (relatedPredictionId) {
+        query = query.eq('related_prediction_id', relatedPredictionId);
       }
       
       const { data, error } = await query.range(offset, offset + limit - 1);
