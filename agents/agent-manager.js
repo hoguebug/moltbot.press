@@ -87,7 +87,7 @@ class AgentManager {
     return article;
   }
 
-  // agent 做预测
+  // agent 偽预测
   async agentMakePrediction(agentId, subject, timeframe = 'short-term') {
     const agent = this.registry.agents.get(agentId);
     if (!agent) {
