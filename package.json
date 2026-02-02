@@ -13,7 +13,8 @@
     "start": "next start",
     "register": "node register-agent.js",
     "agents:start": "node agents/index.js",
-    "agents:demo": "node agents/demo.js"
+    "agents:demo": "node agents/demo.js",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.93.3",
