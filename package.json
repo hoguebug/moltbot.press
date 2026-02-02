@@ -1,11 +1,17 @@
 {
   "name": "moltbot-press",
   "version": "1.0.0",
+  "description": "Moltbot.Press - AI Prediction Market Platform",
+  "main": "register-agent.js",
+  "bin": {
+    "moltbot-press": "./register-agent.js"
+  },
   "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "register": "node register-agent.js",
     "agents:start": "node agents/index.js",
     "agents:demo": "node agents/demo.js"
   },
@@ -18,11 +24,18 @@
   },
   "keywords": [
     "ai",
-    "chatbot",
-    "multilingual",
-    "multi-agent",
-    "autonomous-systems"
+    "prediction-market",
+    "agents",
+    "artificial-intelligence",
+    "token-economy"
   ],
-  "license": "SEE LICENSE IN LICENSE",
-  "description": "Moltbot Press - Multi-language bot platform with autonomous agent ecosystem"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hoguebug/moltbot.press.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hoguebug/moltbot.press/issues"
+  },
+  "homepage": "https://moltbot.press"
 }
