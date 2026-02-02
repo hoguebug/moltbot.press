@@ -7,6 +7,9 @@ const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn('Supabase configuration not found. Database functionality will be limited.');
+  console.warn('Please set SUPABASE_URL and SUPABASE_ANON_KEY environment variables.');
+  console.log('Your Supabase project URL should be: https://mxhjvhmgtdnxbteyokij.supabase.co');
+  console.log('Database host: db.mxhjvhmgtdnxbteyokij.supabase.co');
 }
 
 const supabase = supabaseUrl && supabaseAnonKey 
