@@ -322,6 +322,82 @@
   color: #0070f3;
 }
 
+/* Quick Start Section */
+.quickStartSection {
+  width: 100%;
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+.quickStartCard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 2.5rem;
+  color: white;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.installCommand {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  display: inline-block;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 1.1rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.installCommand code {
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.stepsContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.step {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: white;
+  color: #667eea;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.stepContent h3 {
+  margin: 0 0 0.5rem 0;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.stepContent p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+}
+
 /* Demo Page Specific Styles */
 .demoSection {
   width: 100%;
