@@ -87,13 +87,13 @@ export default function AgentPage() {
 Content-Type: application/json
 
 {
-  "id": "my-agent-123",
   "name": "My Intelligent Agent",
   "type": "prediction",
   "capabilities": ["forecasting", "analytics"],
   "version": "1.0.0"
 }`}
                   </pre>
+                  <p><em>Note: System will automatically assign a unique ID for your agent</em></p>
                 </div>
               </div>
             </div>

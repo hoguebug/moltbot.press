@@ -1,4 +1,6 @@
-:root {
+/* CSS Variables using a hidden class */
+.variables {
+  /* Define CSS custom properties */
   --primary-color: #0070f3;
   --secondary-color: #7928ca;
   --background-color: #ffffff;
@@ -69,7 +71,7 @@
   line-height: 1.15;
   font-size: 3rem;
   font-weight: 800;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(90deg, #0070f3, #7928ca);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-align: center;
@@ -79,7 +81,7 @@
   line-height: 1.5;
   font-size: 1.25rem;
   text-align: center;
-  color: var(--text-secondary);
+  color: #666666;
   max-width: 700px;
   margin: 1rem auto 2rem;
   font-weight: 400;
@@ -101,20 +103,20 @@
   display: block;
   font-size: 2rem;
   font-weight: bold;
-  color: var(--primary-color);
+  color: #0070f3;
 }
 
 .statLabel {
   display: block;
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: #666666;
 }
 
 .sectionTitle {
   font-size: 2rem;
   margin-bottom: 2.5rem;
   text-align: center;
-  color: var(--text-primary);
+  color: #000000;
   position: relative;
 }
 
@@ -123,7 +125,7 @@
   display: block;
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(90deg, #0070f3, #7928ca);
   margin: 0.5rem auto;
   border-radius: 2px;
 }
@@ -151,21 +153,21 @@
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .roleCard {
   padding: 2.5rem;
-  border: 2px solid var(--border-color);
-  border-radius: var(--radius);
-  transition: var(--transition);
+  border: 2px solid #eaeaea;
+  border-radius: 12px;
+  transition: all 0.3s ease;
   cursor: pointer;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background: white;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
 }
@@ -177,9 +179,9 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(90deg, #0070f3, #7928ca);
   opacity: 0;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .roleCard:hover::before {
@@ -188,8 +190,8 @@
 
 .roleCard:hover {
   transform: translateY(-10px);
-  box-shadow: var(--shadow-hover);
-  border-color: var(--primary-color);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-color: #0070f3;
 }
 
 .humanCard {
@@ -209,24 +211,24 @@
 .roleCard h3 {
   font-size: 1.75rem;
   margin: 0 0 1rem 0;
-  color: var(--text-primary);
+  color: #000000;
 }
 
 .roleCard p {
   margin: 0 0 1.5rem 0;
   font-size: 1.1rem;
   line-height: 1.6;
-  color: var(--text-secondary);
+  color: #666666;
 }
 
 .roleAction {
   align-self: flex-start;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(90deg, #0070f3, #7928ca);
   color: white;
   border-radius: 8px;
   font-weight: 600;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .roleCard:hover .roleAction {
@@ -245,16 +247,16 @@
 .featureCard {
   background: white;
   padding: 2rem;
-  border-radius: var(--radius);
+  border-radius: 12px;
   text-align: center;
-  transition: var(--transition);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeaea;
 }
 
 .featureCard:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-hover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .featureIcon {
@@ -265,14 +267,14 @@
 .featureCard h3 {
   font-size: 1.25rem;
   margin: 0 0 1rem 0;
-  color: var(--text-primary);
+  color: #000000;
 }
 
 .featureCard p {
   margin: 0;
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--text-secondary);
+  color: #666666;
 }
 
 .features {
@@ -283,7 +285,7 @@
 .footer {
   width: 100%;
   background: white;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid #eaeaea;
   padding: 2rem 0;
   margin-top: auto;
 }
@@ -302,7 +304,7 @@
 .footerText {
   font-weight: bold;
   font-size: 1.2rem;
-  color: var(--text-primary);
+  color: #000000;
 }
 
 .footerLinks {
@@ -311,13 +313,13 @@
 }
 
 .footerLinks a {
-  color: var(--text-secondary);
+  color: #666666;
   text-decoration: none;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .footerLinks a:hover {
-  color: var(--primary-color);
+  color: #0070f3;
 }
 
 /* Human and Agent Pages Specific Styles */
@@ -327,9 +329,9 @@
   margin: 2rem auto;
   padding: 2rem;
   background: white;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeaea;
 }
 
 .searchControls {
@@ -350,21 +352,21 @@
 .filterGroup label {
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #000000;
 }
 
 .select {
   padding: 0.75rem;
-  border: 1px solid var(--border-color);
+  border: 1px solid #eaeaea;
   border-radius: 8px;
   font-size: 1rem;
   background: white;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .select:focus {
   outline: none;
-  border-color: var(--primary-color);
+  border-color: #0070f3;
   box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
 }
 
@@ -378,34 +380,34 @@
 .searchInput {
   flex: 1;
   padding: 0.875rem 1rem;
-  border: 1px solid var(--border-color);
+  border: 1px solid #eaeaea;
   border-radius: 8px;
   font-size: 1rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   min-width: 250px;
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: var(--primary-color);
+  border-color: #0070f3;
   box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
 }
 
 .searchButton {
   padding: 0.875rem 1.75rem;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(90deg, #0070f3, #7928ca);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .searchButton:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .contentList {
@@ -425,32 +427,32 @@
 .contentItem {
   padding: 1.5rem;
   background: white;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  transition: var(--transition);
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  transition: all 0.3s ease;
 }
 
 .contentItem:hover {
-  box-shadow: var(--shadow-hover);
-  border-color: var(--primary-color);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-color: #0070f3;
 }
 
 .contentItem h4 {
   margin: 0 0 0.5rem 0;
-  color: var(--primary-color);
+  color: #0070f3;
   font-size: 1.25rem;
 }
 
 .contentMeta {
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: #666666;
   margin: 0 0 1rem 0;
 }
 
 .contentItem p {
   margin: 0;
   line-height: 1.6;
-  color: var(--text-primary);
+  color: #000000;
 }
 
 .registrationSteps {
@@ -464,18 +466,18 @@
   display: flex;
   margin-bottom: 2.5rem;
   background: white;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
   overflow: hidden;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .step:hover {
-  box-shadow: var(--shadow-hover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .stepNumber {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(135deg, #0070f3, #7928ca);
   color: white;
   width: 80px;
   min-width: 80px;
@@ -493,7 +495,7 @@
 
 .stepContent h3 {
   margin-top: 0;
-  color: var(--text-primary);
+  color: #000000;
   font-size: 1.5rem;
 }
 
@@ -509,47 +511,47 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #000000;
 }
 
 .input {
   width: 100%;
   padding: 0.875rem;
-  border: 1px solid var(--border-color);
+  border: 1px solid #eaeaea;
   border-radius: 8px;
   font-size: 1rem;
   box-sizing: border-box;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--primary-color);
+  border-color: #0070f3;
   box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
 }
 
 .textarea {
   width: 100%;
   padding: 0.875rem;
-  border: 1px solid var(--border-color);
+  border: 1px solid #eaeaea;
   border-radius: 8px;
   font-size: 1rem;
   box-sizing: border-box;
   resize: vertical;
   min-height: 120px;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .textarea:focus {
   outline: none;
-  border-color: var(--primary-color);
+  border-color: #0070f3;
   box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
 }
 
 .apiConfig {
   margin-top: 1.5rem;
   padding: 1.5rem;
-  background: var(--surface-color);
+  background: #f8f9fa;
   border-radius: 8px;
 }
 
@@ -585,20 +587,20 @@
 
 .registerButton {
   padding: 0.875rem 2.5rem;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(90deg, #0070f3, #7928ca);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   margin-top: 1rem;
 }
 
 .registerButton:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .backLink {
@@ -607,14 +609,14 @@
 }
 
 .backLink a {
-  color: var(--primary-color);
+  color: #0070f3;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .backLink a:hover {
