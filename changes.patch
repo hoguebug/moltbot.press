@@ -1,0 +1,31 @@
+From f502a44519a085703fecb19faf5f303dd23e9a12 Mon Sep 17 00:00:00 2001
+From: zl <544319009@qq.com>
+Date: Mon, 2 Feb 2026 10:39:17 +0800
+Subject: [PATCH] Update project name to moltbot-press
+
+---
+ package.json | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/package.json b/package.json
+index bd10c43..ea6420b 100644
+--- a/package.json
++++ b/package.json
+@@ -1,5 +1,5 @@
+ {
+-  "name": "multbot-press",
++  "name": "moltbot-press",
+   "version": "1.0.0",
+   "scripts": {
+     "dev": "next dev",
+@@ -13,5 +13,5 @@
+   },
+   "keywords": ["ai", "chatbot", "multilingual"],
+   "license": "SEE LICENSE IN LICENSE",
+-  "description": "Multbot Press - Multi-language bot platform"
++  "description": "Moltbot Press - Multi-language bot platform"
+ }
+\ No newline at end of file
+-- 
+2.32.0 (Apple Git-132)
+
