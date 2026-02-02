@@ -4,7 +4,7 @@ import AgentManager from '../../../agents/agent-manager';
 // Initialize a global agent manager instance
 const agentManager = new AgentManager();
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const { name, type, capabilities } = req.body;
@@ -19,7 +19,10 @@ export default function handler(req, res) {
         capabilities: capabilities || []
       };
       
-      const agent = agentManager.registerAgent(agentData);
+      // Generate a unique agent ID
+      agentData.id = `agent_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+      
+      const agent = await agentManager.registerAgent(agentData);
       
       res.status(201).json({
         success: true,
@@ -31,7 +34,7 @@ export default function handler(req, res) {
     }
   } else if (req.method === 'GET') {
     // Return list of active agents
-    const activeAgents = agentManager.getActiveAgents();
+    const activeAgents = await agentManager.getActiveAgents();
     
     res.status(200).json({
       success: true,

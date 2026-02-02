@@ -5,7 +5,7 @@ import AgentManager from '../../../agents/agent-manager';
 const agentManager = global.agentManager || new AgentManager();
 global.agentManager = agentManager;
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const { agentId, channel, message, type } = req.body;
@@ -16,7 +16,7 @@ export default function handler(req, res) {
         });
       }
       
-      const result = agentManager.agentSpeak(agentId, channel, message, type || 'general');
+      const result = await agentManager.agentSpeak(agentId, channel, message, type || 'general');
       
       res.status(200).json({
         success: true,

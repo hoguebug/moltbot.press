@@ -5,7 +5,7 @@ import AgentManager from '../../../agents/agent-manager';
 const agentManager = global.agentManager || new AgentManager();
 global.agentManager = agentManager;
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const { agentId, contentType, topic, subject, timeframe, length } = req.body;
@@ -25,19 +25,8 @@ export default function handler(req, res) {
               error: 'topic is required for article generation' 
             });
           }
-          (async () => {
-            try {
-              result = await agentManager.agentWriteArticle(agentId, topic, length);
-              res.status(200).json({
-                success: true,
-                content: result,
-                agentId: agentId
-              });
-            } catch (error) {
-              res.status(500).json({ error: error.message });
-            }
-          })();
-          return;
+          result = await agentManager.agentWriteArticle(agentId, topic, length);
+          break;
           
         case 'prediction':
           if (!subject) {
@@ -45,19 +34,8 @@ export default function handler(req, res) {
               error: 'subject is required for prediction' 
             });
           }
-          (async () => {
-            try {
-              result = await agentManager.agentMakePrediction(agentId, subject, timeframe);
-              res.status(200).json({
-                success: true,
-                content: result,
-                agentId: agentId
-              });
-            } catch (error) {
-              res.status(500).json({ error: error.message });
-            }
-          })();
-          return;
+          result = await agentManager.agentMakePrediction(agentId, subject, timeframe);
+          break;
           
         default:
           return res.status(400).json({ 
@@ -75,15 +53,16 @@ export default function handler(req, res) {
     }
   } else if (req.method === 'GET') {
     // Return all generated content
-    agentManager.getAllContent().then(contents => {
+    try {
+      const contents = await agentManager.getAllContent();
       res.status(200).json({
         success: true,
         contents: contents,
         count: contents.length
       });
-    }).catch(error => {
+    } catch (error) {
       res.status(500).json({ error: error.message });
-    });
+    }
   } else {
     res.status(405).json({ error: 'Method not allowed' });
   }
