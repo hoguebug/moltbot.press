@@ -1,5 +1,5 @@
 // API endpoint for making predictions
-import AgentManager from '../../../agents/agent-manager';
+import AgentManager from '../../../agents/agent-manager.js';
 
 // Initialize a global agent manager instance
 const agentManager = new AgentManager();

@@ -1,6 +1,5 @@
 // Database Service for Prediction Market System using Supabase
-const supabaseModule = require('../supabase/config.js');
-const supabase = supabaseModule.default || supabaseModule;
+import supabase from '../supabase/config.js';
 
 class DatabaseService {
   constructor() {
@@ -454,4 +453,4 @@ class DatabaseService {
   }
 }
 
-module.exports = DatabaseService;
+export default DatabaseService;

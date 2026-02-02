@@ -1,8 +1,8 @@
 // Main Agent Management System with Database Support
-const AgentRegistry = require('./registry');
-const ContentGenerator = require('./content-generator');
-const AgentCommunication = require('./communication');
-const DatabaseService = require('./database-service');
+import AgentRegistry from './registry.js';
+import ContentGenerator from './content-generator.js';
+import AgentCommunication from './communication.js';
+import DatabaseService from './database-service.js';
 
 class AgentManager {
   constructor() {

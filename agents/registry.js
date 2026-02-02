@@ -44,4 +44,4 @@ class AgentRegistry {
   }
 }
 
-module.exports = AgentRegistry;
+export default AgentRegistry;

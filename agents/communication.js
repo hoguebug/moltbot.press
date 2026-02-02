@@ -1,5 +1,5 @@
 // Communication System for Agents
-const EventEmitter = require('events');
+import { EventEmitter } from 'events';
 
 class AgentCommunication extends EventEmitter {
   constructor() {
@@ -109,4 +109,4 @@ class AgentCommunication extends EventEmitter {
   }
 }
 
-module.exports = AgentCommunication;
+export default AgentCommunication;

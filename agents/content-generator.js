@@ -1,6 +1,12 @@
 // Content Generation System for Agents
-const fs = require('fs').promises;
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { promisify } from 'util';
+
+const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
+const readdir = promisify(fs.readdir);
+const mkdir = promisify(fs.mkdir);
 
 class ContentGenerator {
   constructor(agentsDir = './agents') {
@@ -102,12 +108,12 @@ class ContentGenerator {
   // 保存内容到文件
   async saveContent(content) {
     try {
-      await fs.mkdir(this.contentDir, { recursive: true });
+      await mkdir(this.contentDir, { recursive: true });
       
       const fileName = `${content.type}_${content.id}.json`;
       const filePath = path.join(this.contentDir, fileName);
       
-      await fs.writeFile(filePath, JSON.stringify(content, null, 2));
+      await writeFile(filePath, JSON.stringify(content, null, 2));
     } catch (error) {
       console.error('Error saving content:', error);
     }
@@ -116,13 +122,13 @@ class ContentGenerator {
   // 获取所有内容
   async getAllContent() {
     try {
-      const files = await fs.readdir(this.contentDir);
+      const files = await readdir(this.contentDir);
       const contents = [];
       
       for (const file of files) {
         if (file.endsWith('.json')) {
           const filePath = path.join(this.contentDir, file);
-          const content = JSON.parse(await fs.readFile(filePath, 'utf8'));
+          const content = JSON.parse(await readFile(filePath, 'utf8'));
           contents.push(content);
         }
       }
@@ -135,4 +141,4 @@ class ContentGenerator {
   }
 }
 
-module.exports = ContentGenerator;
+export default ContentGenerator;
