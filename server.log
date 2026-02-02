@@ -2,8 +2,8 @@
   - Local:        http://localhost:5000
 
  ✓ Starting...
- ✓ Ready in 2.5s
- ✓ Compiled /api/agents/register in 282ms (71 modules)
+ ✓ Ready in 2.1s
+ ✓ Compiled /api/agents/register in 212ms (71 modules)
 Supabase configuration not found. Database functionality will be limited.
 Please set SUPABASE_URL and SUPABASE_ANON_KEY environment variables.
 Your Supabase project URL should be: https://mxhjvhmgtdnxbteyokij.supabase.co
@@ -29,9 +29,10 @@ Database connection error: TypeError: supabase.from is not a function
     at Object.<anonymous> (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/register.js:156:3)
     at Module._compile (node:internal/modules/cjs/loader:1706:14)
 ⚠️  Database connection failed, using in-memory fallback
-Agent TestAgent (agent_1770025715568_o33qk) registered successfully
- POST /api/agents/register 201 in 389ms
- ✓ Compiled /api/agents/predict in 105ms (73 modules)
+ GET /api/agents/register 200 in 325ms
+Agent DemoAgent (agent_1770026151359_6ylau) registered successfully
+ POST /api/agents/register 201 in 4ms
+ ✓ Compiled /api/agents/predict in 76ms (73 modules)
 Supabase configuration not found. Database functionality will be limited.
 Please set SUPABASE_URL and SUPABASE_ANON_KEY environment variables.
 Your Supabase project URL should be: https://mxhjvhmgtdnxbteyokij.supabase.co
@@ -57,53 +58,4 @@ Database connection error: TypeError: supabase.from is not a function
     at Object.<anonymous> (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/predict.js:156:3)
     at Module._compile (node:internal/modules/cjs/loader:1706:14)
 ⚠️  Database connection failed, using in-memory fallback
- POST /api/agents/predict 500 in 119ms
-Channel 'general' created with public permissions
-Channel 'announcements' created with public permissions
-Channel 'predictions' created with public permissions
-Channel 'articles' created with public permissions
-Database connection error: TypeError: supabase.from is not a function
-    at DatabaseService.checkConnection (webpack-internal:///(api)/./agents/database-service.js:16:52)
-    at AgentManager.initDatabase (webpack-internal:///(api)/./agents/agent-manager.js:23:58)
-    at new AgentManager (webpack-internal:///(api)/./agents/agent-manager.js:19:14)
-    at eval (webpack-internal:///(api)/./pages/api/agents/register.js:10:22)
-    at (api)/./pages/api/agents/register.js (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/register.js:132:1)
-    at __webpack_require__ (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/webpack-api-runtime.js:33:42)
-    at eval (webpack-internal:///(api)/./node_modules/next/dist/build/webpack/loaders/next-route-loader/index.js?kind=PAGES_API&page=%2Fapi%2Fagents%2Fregister&preferredRegion=&absolutePagePath=.%2Fpages%2Fapi%2Fagents%2Fregister.js&middlewareConfigBase64=e30%3D!:11:87)
-    at (api)/./node_modules/next/dist/build/webpack/loaders/next-route-loader/index.js?kind=PAGES_API&page=%2Fapi%2Fagents%2Fregister&preferredRegion=&absolutePagePath=.%2Fpages%2Fapi%2Fagents%2Fregister.js&middlewareConfigBase64=e30%3D! (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/register.js:72:1)
-    at __webpack_require__ (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/webpack-api-runtime.js:33:42)
-    at __webpack_exec__ (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/register.js:152:39)
-    at /Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/register.js:153:83
-    at __webpack_require__.X (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/webpack-api-runtime.js:116:21)
-    at /Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/register.js:153:47
-    at Object.<anonymous> (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/register.js:156:3)
-    at Module._compile (node:internal/modules/cjs/loader:1706:14)
-⚠️  Database connection failed, using in-memory fallback
- GET /api/agents/register 200 in 6ms
- ✓ Compiled /api/agents/vote in 70ms (75 modules)
-Supabase configuration not found. Database functionality will be limited.
-Please set SUPABASE_URL and SUPABASE_ANON_KEY environment variables.
-Your Supabase project URL should be: https://mxhjvhmgtdnxbteyokij.supabase.co
-Database host: db.mxhjvhmgtdnxbteyokij.supabase.co
-Channel 'general' created with public permissions
-Channel 'announcements' created with public permissions
-Channel 'predictions' created with public permissions
-Channel 'articles' created with public permissions
-Database connection error: TypeError: supabase.from is not a function
-    at DatabaseService.checkConnection (webpack-internal:///(api)/./agents/database-service.js:16:52)
-    at AgentManager.initDatabase (webpack-internal:///(api)/./agents/agent-manager.js:23:58)
-    at new AgentManager (webpack-internal:///(api)/./agents/agent-manager.js:19:14)
-    at eval (webpack-internal:///(api)/./pages/api/agents/vote.js:10:22)
-    at (api)/./pages/api/agents/vote.js (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/vote.js:132:1)
-    at __webpack_require__ (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/webpack-api-runtime.js:33:42)
-    at eval (webpack-internal:///(api)/./node_modules/next/dist/build/webpack/loaders/next-route-loader/index.js?kind=PAGES_API&page=%2Fapi%2Fagents%2Fvote&preferredRegion=&absolutePagePath=.%2Fpages%2Fapi%2Fagents%2Fvote.js&middlewareConfigBase64=e30%3D!:11:83)
-    at (api)/./node_modules/next/dist/build/webpack/loaders/next-route-loader/index.js?kind=PAGES_API&page=%2Fapi%2Fagents%2Fvote&preferredRegion=&absolutePagePath=.%2Fpages%2Fapi%2Fagents%2Fvote.js&middlewareConfigBase64=e30%3D! (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/vote.js:72:1)
-    at __webpack_require__ (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/webpack-api-runtime.js:33:42)
-    at __webpack_exec__ (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/vote.js:152:39)
-    at /Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/vote.js:153:83
-    at __webpack_require__.X (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/webpack-api-runtime.js:116:21)
-    at /Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/vote.js:153:47
-    at Object.<anonymous> (/Users/zhanglongchao/temp-multbot-deploy/moltbot-press-new/.next/server/pages/api/agents/vote.js:156:3)
-    at Module._compile (node:internal/modules/cjs/loader:1706:14)
-⚠️  Database connection failed, using in-memory fallback
- POST /api/agents/vote 500 in 84ms
+ POST /api/agents/predict 500 in 90ms

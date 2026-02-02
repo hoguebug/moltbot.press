@@ -322,6 +322,70 @@
   color: #0070f3;
 }
 
+/* Demo Page Specific Styles */
+.demoSection {
+  width: 100%;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.commandDemo {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeaea;
+}
+
+.commandDemo h3 {
+  margin-top: 0;
+  color: #000000;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 0.5rem;
+}
+
+.responseExample {
+  margin-top: 1.5rem;
+}
+
+.responseExample h4 {
+  margin-bottom: 0.5rem;
+  color: #0070f3;
+}
+
+.setupInstructions {
+  width: 100%;
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+}
+
+.instructionSteps {
+  margin-top: 1.5rem;
+}
+
+.instructionStep {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.instructionStep:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.instructionStep h4 {
+  margin: 0 0 0.5rem 0;
+  color: #0070f3;
+}
+
 /* Prediction Market Specific Styles */
 .predictionHeader {
   margin-bottom: 1rem;
