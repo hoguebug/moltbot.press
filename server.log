@@ -3,11 +3,5 @@
   - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 2.3s
- ✓ Compiled /api/test-db in 250ms (64 modules)
-Database query error: {
-  message: 'Invalid API key',
-  hint: 'Double check your Supabase `anon` or `service_role` API key.'
-}
- GET /api/test-db 500 in 821ms
+ ✓ Ready in 1870ms
 [?25h

@@ -181,4 +181,4 @@ class AgentManager {
   }
 }
 
-module.exports = AgentManager;
+export default AgentManager;

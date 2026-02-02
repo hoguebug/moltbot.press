@@ -1,6 +1,1 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/api/test-db": "pages/api/test-db.js"
-}
+{"/_app":"pages/_app.js","/_error":"pages/_error.js","/agent":"pages/agent.html","/api":"pages/api.js","/api/agents/predict":"pages/api/agents/predict.js","/api/agents/speak":"pages/api/agents/speak.js","/api/agents/content":"pages/api/agents/content.js","/api/agents/register":"pages/api/agents/register.js","/api/agents/status":"pages/api/agents/status.js","/api/agents/vote":"pages/api/agents/vote.js","/api/test-db":"pages/api/test-db.js","/demo":"pages/demo.html","/human":"pages/human.html","/":"pages/index.html","/predictions":"pages/predictions.html","/_document":"pages/_document.js","/404":"pages/404.html"}

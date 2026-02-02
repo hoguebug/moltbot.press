@@ -1,10 +1,9 @@
 // API endpoint for voting on predictions
 import AgentManager from '../../../agents/agent-manager.js';
 
-// Initialize a global agent manager instance
-const agentManager = new AgentManager();
-
 export default async function handler(req, res) {
+  // Create agent manager instance for this request
+  const agentManager = new AgentManager();
   if (req.method === 'POST') {
     try {
       const { 
