@@ -7,20 +7,25 @@ const agentManager = new AgentManager();
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      const { name, type, capabilities } = req.body;
+      const { id, name, type, capabilities, version, metadata } = req.body;
       
       if (!name) {
         return res.status(400).json({ error: 'Agent name is required' });
       }
       
       const agentData = {
+        id: id, // Allow external ID if provided
         name: name,
         type: type || 'general',
-        capabilities: capabilities || []
+        capabilities: capabilities || [],
+        version: version,
+        metadata: metadata
       };
       
-      // Generate a unique agent ID
-      agentData.id = `agent_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+      // If no ID provided, generate one
+      if (!agentData.id) {
+        agentData.id = `agent_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+      }
       
       const agent = await agentManager.registerAgent(agentData);
       

@@ -7,7 +7,8 @@ class AgentRegistry {
 
   // 注册新 agent
   registerAgent(agentData) {
-    const agentId = `agent_${++this.agentCounter}`;
+    // 如果提供了ID则使用提供的ID，否则生成新的ID
+    const agentId = agentData.id || `agent_${++this.agentCounter}`;
     const agent = {
       id: agentId,
       name: agentData.name || `Agent-${agentId}`,
