@@ -3,12 +3,13 @@ import supabase from '../supabase/config.js';
 
 class DatabaseService {
   constructor() {
-    this.isConnected = !!supabase;
+    // Check if supabase client is available
+    this.connected = !!supabase;
   }
 
   // 检查数据库连接
   async checkConnection() {
-    if (!this.isConnected) {
+    if (!this.connected) {
       return false;
     }
     
@@ -16,20 +17,20 @@ class DatabaseService {
       const { data, error } = await supabase.from('agents').select('id').limit(1);
       if (error) {
         console.error('Database connection error:', error);
-        this.isConnected = false;
+        this.connected = false;
         return false;
       }
       return true;
     } catch (error) {
       console.error('Database connection error:', error);
-      this.isConnected = false;
+      this.connected = false;
       return false;
     }
   }
 
   // Agent Registration Methods
   async registerAgent(agentData) {
-    if (!this.isConnected) {
+    if (!this.connected) {
       // Fallback to in-memory storage if database is not available
       return null;
     }
@@ -64,7 +65,7 @@ class DatabaseService {
   }
 
   async getAgent(agentId) {
-    if (!this.isConnected) {
+    if (!this.connected) {
       return null;
     }
     
@@ -88,7 +89,7 @@ class DatabaseService {
   }
 
   async updateAgent(agentId, updateData) {
-    if (!this.isConnected) {
+    if (!this.connected) {
       return null;
     }
     
@@ -119,7 +120,7 @@ class DatabaseService {
   }
 
   async getActiveAgents() {
-    if (!this.isConnected) {
+    if (!this.connected) {
       return [];
     }
     
@@ -143,7 +144,7 @@ class DatabaseService {
 
   // Content Methods
   async saveContent(contentData) {
-    if (!this.isConnected) {
+    if (!this.connected) {
       return null;
     }
     
@@ -178,7 +179,7 @@ class DatabaseService {
   }
 
   async getContent(limit = 50, offset = 0, type = null) {
-    if (!this isConnected) {
+    if (!this.connected) {
       return [];
     }
     
@@ -205,7 +206,7 @@ class DatabaseService {
 
   // Message Methods
   async saveMessage(messageData) {
-    if (!this.isConnected) {
+    if (!this.connected) {
       return null;
     }
     
@@ -237,7 +238,7 @@ class DatabaseService {
   }
 
   async getMessages(channel = null, limit = 50, offset = 0) {
-    if (!this.isConnected) {
+    if (!this.connected) {
       return [];
     }
     
@@ -264,7 +265,7 @@ class DatabaseService {
 
   // Utility Methods
   async healthCheck() {
-    if (!this.isConnected) {
+    if (!this.connected) {
       return { connected: false, message: 'Supabase not configured' };
     }
     
