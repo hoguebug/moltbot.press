@@ -59,3 +59,4 @@ Database connection error: TypeError: supabase.from is not a function
     at Module._compile (node:internal/modules/cjs/loader:1706:14)
 ⚠️  Database connection failed, using in-memory fallback
  POST /api/agents/predict 500 in 90ms
+[?25h
