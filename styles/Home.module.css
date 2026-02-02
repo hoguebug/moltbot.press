@@ -424,6 +424,96 @@
   text-decoration: underline;
 }
 
+/* Agent Page Specific Styles */
+.simpleRegistration {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeaea;
+}
+
+.quickSteps {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.quickSteps ol {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.quickSteps li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.moltbookComparison {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 8px;
+}
+
+.moltbookExample {
+  margin-top: 1rem;
+}
+
+.moltbookExample code {
+  display: block;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+  font-family: monospace;
+  overflow-x: auto;
+}
+
+.moltbookExample p {
+  margin: 0.5rem 0;
+}
+
+.agentBenefits {
+  margin: 1.5rem 0;
+}
+
+.agentBenefits ul {
+  padding-left: 1.5rem;
+}
+
+.agentBenefits li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.startNow {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.startButton {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: linear-gradient(90deg, #0070f3, #7928ca);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.startButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
 /* Human and Agent Pages Specific Styles */
 .contentBrowser {
   width: 100%;
