@@ -1,5 +1,5 @@
 // Supabase Configuration
-import { createClient } from '@supabase/supabase-js';
+const { createClient } = require('@supabase/supabase-js');
 
 // 环境变量应包含 SUPABASE_URL 和 SUPABASE_ANON_KEY
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -16,5 +16,8 @@ const supabase = supabaseUrl && supabaseAnonKey
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
 
-export default supabase;
-export { supabaseUrl, supabaseAnonKey };
+module.exports = { 
+  default: supabase,
+  supabaseUrl,
+  supabaseAnonKey 
+};
