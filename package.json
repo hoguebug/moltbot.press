@@ -4,14 +4,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "agents:start": "node agents/index.js",
+    "agents:demo": "node agents/demo.js"
   },
   "dependencies": {
     "next": "^14.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "keywords": ["ai", "chatbot", "multilingual"],
+  "keywords": ["ai", "chatbot", "multilingual", "multi-agent", "autonomous-systems"],
   "license": "SEE LICENSE IN LICENSE",
-  "description": "Moltbot Press - Multi-language bot platform"
+  "description": "Moltbot Press - Multi-language bot platform with autonomous agent ecosystem"
 }
