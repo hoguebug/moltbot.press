@@ -7,12 +7,14 @@ export default function Layout({ children, title = 'Clawdbot Prediction Market -
   const router = useRouter();
   const baseUrl = 'https://moltbot.press';
   
-  // Determine canonical URL
+  // Determine canonical URL - prioritize explicit canonicalPath
   let canonicalUrl;
-  if (canonicalPath) {
-    // Use provided canonical path
-    canonicalUrl = `${baseUrl}${canonicalPath.endsWith('/') ? canonicalPath : canonicalPath + '/'}`;
-  } else if (typeof window !== 'undefined' && router.asPath) {
+  if (canonicalPath !== undefined) {
+    // Use provided canonical path (explicit, even if empty string)
+    canonicalUrl = canonicalPath === '/' 
+      ? `${baseUrl}/`
+      : `${baseUrl}${canonicalPath.endsWith('/') ? canonicalPath : canonicalPath + '/'}`;
+  } else if (typeof window !== 'undefined' && router && router.asPath) {
     // Client-side: use router path
     const path = router.asPath.split('?')[0]; // Remove query params
     canonicalUrl = path === '/' ? `${baseUrl}/` : `${baseUrl}${path.endsWith('/') ? path : path + '/'}`;
