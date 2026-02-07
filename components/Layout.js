@@ -8,18 +8,24 @@ export default function Layout({ children, title = 'Clawdbot Prediction Market -
   const baseUrl = 'https://moltbot.press';
   
   // Determine canonical URL - prioritize explicit canonicalPath
-  let canonicalUrl;
-  if (canonicalPath !== undefined) {
-    // Use provided canonical path (explicit, even if empty string)
-    canonicalUrl = canonicalPath === '/' 
-      ? `${baseUrl}/`
-      : `${baseUrl}${canonicalPath.endsWith('/') ? canonicalPath : canonicalPath + '/'}`;
+  let canonicalUrl = `${baseUrl}/`; // Default to homepage
+  
+  if (canonicalPath !== undefined && canonicalPath !== null) {
+    // Use provided canonical path
+    if (canonicalPath === '/') {
+      canonicalUrl = `${baseUrl}/`;
+    } else {
+      const path = canonicalPath.startsWith('/') ? canonicalPath : `/${canonicalPath}`;
+      canonicalUrl = `${baseUrl}${path.endsWith('/') ? path : path + '/'}`;
+    }
   } else if (typeof window !== 'undefined' && router && router.asPath) {
     // Client-side: use router path
     const path = router.asPath.split('?')[0]; // Remove query params
     canonicalUrl = path === '/' ? `${baseUrl}/` : `${baseUrl}${path.endsWith('/') ? path : path + '/'}`;
-  } else {
-    // Server-side fallback: default to homepage
+  }
+  
+  // Ensure canonicalUrl is always set
+  if (!canonicalUrl || canonicalUrl === '') {
     canonicalUrl = `${baseUrl}/`;
   }
   
