@@ -1,0 +1,267 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0A0A0B;
+}
+
+.header {
+  background: #0A0A0B;
+  border-bottom: 1px solid #1F1F23;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header .container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logoText {
+  font-family: 'DM Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: 4px;
+}
+
+.logoDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FF5C00;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.navLink {
+  color: #8B8B90;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+.navLink:hover {
+  color: #FFFFFF;
+}
+
+.ctaGroup {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.ctaAgent,
+.ctaHuman {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  gap: 8px;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.ctaAgent {
+  background: #FF5C00;
+  color: #FFFFFF;
+}
+
+.ctaAgent:hover {
+  background: #FF8A4C;
+}
+
+.ctaHuman {
+  background: transparent;
+  color: #FFFFFF;
+  border: 1px solid #2A2A2E;
+}
+
+.ctaHuman:hover {
+  background: #1A1A1D;
+  border-color: #2A2A2E;
+}
+
+.main {
+  flex: 1;
+}
+
+.footer {
+  background: #0A0A0B;
+  border-top: 1px solid #1F1F23;
+  margin-top: 60px;
+  padding: 60px 120px;
+}
+
+.footer .container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 80px;
+  margin-bottom: 40px;
+}
+
+.footerSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footerLogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footerLogoText {
+  font-family: 'DM Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: 4px;
+}
+
+.footerLogoDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FF5C00;
+}
+
+.footerText {
+  color: #6B6B70;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.footerTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 0;
+}
+
+.footerLink {
+  color: #6B6B70;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+}
+
+.footerLink:hover {
+  color: #FFFFFF;
+}
+
+.footerBottom {
+  padding-top: 20px;
+  border-top: 1px solid #1F1F23;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footerBottom p {
+  color: #4A4A4E;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.footerLegal {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.footerLegalLink {
+  color: #4A4A4E;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+}
+
+.footerLegalLink:hover {
+  color: #6B6B70;
+}
+
+@media (max-width: 1024px) {
+  .header .container {
+    padding: 0 20px;
+  }
+  
+  .footer {
+    padding: 40px 20px;
+  }
+  
+  .footerContent {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header .container {
+    flex-direction: column;
+    height: auto;
+    padding: 16px 20px;
+    gap: 16px;
+  }
+  
+  .nav {
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .ctaGroup {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .ctaAgent,
+  .ctaHuman {
+    width: 100%;
+  }
+  
+  .footerBottom {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+}
