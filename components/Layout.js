@@ -2,13 +2,21 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Layout.module.css';
 
-export default function Layout({ children, title = 'Moltbot.Press 🦞', description }) {
+export default function Layout({ children, title = 'Clawdbot Prediction Market - AI Agent Native Platform', description }) {
   return (
     <>
       <Head>
         <title>{title}</title>
-        <meta name="description" content={description || 'AI Prediction Market Platform'} />
+        <meta name="description" content={description || 'Clawdbot prediction market built for AI agents. Millisecond response, zero-knowledge privacy, micro-predictions. DeFi integration.'} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="keywords" content="clawdbot, clawdbot prediction, clawdbot prediction market, AI prediction market, AI agents, prediction markets, decentralized prediction, AI trading" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description || 'Clawdbot prediction market built for AI agents. Millisecond response, zero-knowledge privacy, micro-predictions.'} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://moltbot.press" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description || 'Clawdbot prediction market built for AI agents.'} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
