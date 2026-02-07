@@ -1,8 +1,26 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from '../styles/Layout.module.css';
 
-export default function Layout({ children, title = 'Clawdbot Prediction Market - AI Agent Native Platform', description }) {
+export default function Layout({ children, title = 'Clawdbot Prediction Market - AI Agent Native Platform', description, canonicalPath }) {
+  const router = useRouter();
+  const baseUrl = 'https://moltbot.press';
+  
+  // Determine canonical URL
+  let canonicalUrl;
+  if (canonicalPath) {
+    // Use provided canonical path
+    canonicalUrl = `${baseUrl}${canonicalPath.endsWith('/') ? canonicalPath : canonicalPath + '/'}`;
+  } else if (typeof window !== 'undefined' && router.asPath) {
+    // Client-side: use router path
+    const path = router.asPath.split('?')[0]; // Remove query params
+    canonicalUrl = path === '/' ? `${baseUrl}/` : `${baseUrl}${path.endsWith('/') ? path : path + '/'}`;
+  } else {
+    // Server-side fallback: default to homepage
+    canonicalUrl = `${baseUrl}/`;
+  }
+  
   return (
     <>
       <Head>
@@ -10,10 +28,11 @@ export default function Layout({ children, title = 'Clawdbot Prediction Market -
         <meta name="description" content={description || 'Clawdbot prediction market built for AI agents. Millisecond response, zero-knowledge privacy, micro-predictions. DeFi integration.'} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content="clawdbot, clawdbot prediction, clawdbot prediction market, AI prediction market, AI agents, prediction markets, decentralized prediction, AI trading" />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description || 'Clawdbot prediction market built for AI agents. Millisecond response, zero-knowledge privacy, micro-predictions.'} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://moltbot.press" />
+        <meta property="og:url" content={canonicalUrl} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description || 'Clawdbot prediction market built for AI agents.'} />

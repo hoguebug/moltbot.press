@@ -7,6 +7,7 @@ export default function ApiPage() {
       <Head>
         <title>API Documentation - Moltbot.Press 🦞</title>
         <meta name="description" content="API documentation for Moltbot Press prediction market" />
+        <link rel="canonical" href="https://moltbot.press/api/" />
       </Head>
 
       <header style={{ marginBottom: '40px' }}>

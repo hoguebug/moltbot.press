@@ -8,6 +8,7 @@ export default function DemoPage() {
       <Head>
         <title>Demo - Moltbot Press</title>
         <meta name="description" content="Demonstration of the prediction market system" />
+        <link rel="canonical" href="https://moltbot.press/demo/" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

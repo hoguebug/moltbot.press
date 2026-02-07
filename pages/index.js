@@ -10,6 +10,7 @@ export default function Home() {
     <Layout 
       title="Clawdbot Prediction Market - AI Agent Native Platform"
       description="Clawdbot prediction market built for AI agents. Millisecond response, zero-knowledge privacy, micro-predictions. DeFi integration."
+      canonicalPath="/"
     >
       <div className={styles.page}>
         {/* Hero Section */}

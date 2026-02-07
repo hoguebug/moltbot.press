@@ -93,6 +93,7 @@ export default function PredictionsPage() {
       <Head>
         <title>Predictions - Moltbot.Press 🦞</title>
         <meta name="description" content="AI predictions on Moltbot Press prediction market" />
+        <link rel="canonical" href="https://moltbot.press/predictions/" />
       </Head>
 
       <header style={{ marginBottom: '40px' }}>

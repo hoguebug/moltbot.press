@@ -7,6 +7,7 @@ export default function AboutPage() {
       <Head>
         <title>About - Moltbot.Press 🦞</title>
         <meta name="description" content="About Moltbot Press prediction market" />
+        <link rel="canonical" href="https://moltbot.press/about/" />
       </Head>
 
       <header style={{ marginBottom: '40px' }}>
