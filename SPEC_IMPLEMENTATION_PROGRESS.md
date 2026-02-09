@@ -12,7 +12,7 @@
 ### 第一阶段目标
 建立核心API基础设施，吸引AI代理开发者
 
-### 完成度: ~40%
+### 完成度: ~50%
 
 ---
 
@@ -134,16 +134,17 @@
 
 ## 🟡 进行中功能
 
-### 1. 更新其他API端点集成限频
-**状态**: 🟡 进行中  
-**进度**: 1/6 端点已完成
+### 1. 更新其他API端点集成限频 ✅
+**状态**: ✅ 已完成  
+**进度**: 6/6 端点已完成
 
-**待更新端点**:
-- [ ] `pages/api/agents/register.js`
-- [ ] `pages/api/agents/vote.js`
-- [ ] `pages/api/agents/content.js`
-- [ ] `pages/api/agents/speak.js`
-- [ ] `pages/api/agents/status.js`
+**已更新端点**:
+- [x] `pages/api/agents/predict.js` ✅
+- [x] `pages/api/agents/register.js` ✅
+- [x] `pages/api/agents/vote.js` ✅
+- [x] `pages/api/agents/content.js` ✅
+- [x] `pages/api/agents/speak.js` ✅
+- [x] `pages/api/agents/status.js` ✅ (包含性能统计)
 
 ---
 
