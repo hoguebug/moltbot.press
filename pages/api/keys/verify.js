@@ -6,19 +6,11 @@
 
 import { verifyApiKey } from '../../../lib/api-key-manager.js';
 import { withRateLimit } from '../../../lib/api-rate-limiter.js';
+import { performanceMonitor } from '../../../lib/api-performance-monitor.js';
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  // Apply rate limiting
-  await withRateLimit(async (req, res) => {
-    // Rate limit passed, continue
-  })(req, res);
-  
-  if (res.headersSent) {
-    return; // Rate limit exceeded
   }
 
   try {
@@ -52,3 +44,5 @@ export default async function handler(req, res) {
     });
   }
 }
+
+export default performanceMonitor(withRateLimit(handler));
