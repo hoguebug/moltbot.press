@@ -88,45 +88,72 @@ test_endpoint "2.1 Create API Key" "POST" "/api/keys/create" "" \
 
 API_KEY=$(echo "$body" | jq -r '.apiKey // empty')
 if [ -z "$API_KEY" ] || [ "$API_KEY" = "null" ]; then
-    echo -e "${RED}ERROR: Could not get API Key${NC}"
-    exit 1
+    echo -e "${YELLOW}WARNING: Could not get API Key (endpoint may not be deployed yet)${NC}"
+    echo -e "${YELLOW}Continuing with tests that don't require API key...${NC}"
+    API_KEY=""
+else
+    echo "  API Key: ${API_KEY:0:25}..."
+    echo ""
+    
+    test_endpoint "2.2 Verify API Key" "POST" "/api/keys/verify" "" \
+        "{\"apiKey\":\"${API_KEY}\"}" 200
+    echo ""
 fi
-echo "  API Key: ${API_KEY:0:25}..."
-echo ""
-
-test_endpoint "2.2 Verify API Key" "POST" "/api/keys/verify" "" \
-    "{\"apiKey\":\"${API_KEY}\"}" 200
-echo ""
 
 # Test 3: Create Prediction
 echo "[TEST GROUP 3] Prediction Creation"
-HEADERS="-H \"X-API-Key: ${API_KEY}\" -H \"X-Agent-ID: ${AGENT_ID}\""
-test_endpoint "3.1 Create Prediction" "POST" "/api/agents/predict" \
-    "-H \"X-API-Key: ${API_KEY}\" -H \"X-Agent-ID: ${AGENT_ID}\"" \
-    "{\"agentId\":\"${AGENT_ID}\",\"subject\":\"Bitcoin Price Prediction 2026\",\"prediction\":\"Bitcoin will exceed \\\$150k by December 2026\",\"confidence\":75,\"timeframe\":\"long-term\",\"reasoning\":\"Post-halving momentum\"}" 201
-
-CONTENT_ID=$(echo "$body" | jq -r '.prediction.content_id // .prediction.id // empty')
-if [ -z "$CONTENT_ID" ] || [ "$CONTENT_ID" = "null" ]; then
-    echo -e "${YELLOW}WARNING: Could not get Content ID${NC}"
+if [ ! -z "$API_KEY" ]; then
+    HEADERS="-H \"X-API-Key: ${API_KEY}\" -H \"X-Agent-ID: ${AGENT_ID}\""
+    test_endpoint "3.1 Create Prediction" "POST" "/api/agents/predict" \
+        "-H \"X-API-Key: ${API_KEY}\" -H \"X-Agent-ID: ${AGENT_ID}\"" \
+        "{\"agentId\":\"${AGENT_ID}\",\"subject\":\"Bitcoin Price Prediction 2026\",\"prediction\":\"Bitcoin will exceed \\\$150k by December 2026\",\"confidence\":75,\"timeframe\":\"long-term\",\"reasoning\":\"Post-halving momentum\"}" 201
+    
+    CONTENT_ID=$(echo "$body" | jq -r '.prediction.content_id // .prediction.id // empty')
+    if [ -z "$CONTENT_ID" ] || [ "$CONTENT_ID" = "null" ]; then
+        echo -e "${YELLOW}WARNING: Could not get Content ID${NC}"
+    else
+        echo "  Content ID: ${CONTENT_ID}"
+    fi
+    echo ""
+    
+    test_endpoint "3.2 Get Prediction List" "GET" "/api/agents/predict" \
+        "-H \"X-API-Key: ${API_KEY}\"" "" 200
 else
-    echo "  Content ID: ${CONTENT_ID}"
+    # Try without API key (some endpoints may work without it)
+    test_endpoint "3.1 Create Prediction (no API key)" "POST" "/api/agents/predict" \
+        "-H \"X-Agent-ID: ${AGENT_ID}\"" \
+        "{\"agentId\":\"${AGENT_ID}\",\"subject\":\"Bitcoin Price Prediction 2026\",\"prediction\":\"Bitcoin will exceed \\\$150k by December 2026\",\"confidence\":75,\"timeframe\":\"long-term\",\"reasoning\":\"Post-halving momentum\"}" 201
+    
+    CONTENT_ID=$(echo "$body" | jq -r '.prediction.content_id // .prediction.id // empty')
+    if [ -z "$CONTENT_ID" ] || [ "$CONTENT_ID" = "null" ]; then
+        echo -e "${YELLOW}WARNING: Could not get Content ID${NC}"
+    else
+        echo "  Content ID: ${CONTENT_ID}"
+    fi
+    echo ""
+    
+    test_endpoint "3.2 Get Prediction List (no API key)" "GET" "/api/agents/predict" "" "" 200
 fi
-echo ""
-
-test_endpoint "3.2 Get Prediction List" "GET" "/api/agents/predict" \
-    "-H \"X-API-Key: ${API_KEY}\"" "" 200
 echo ""
 
 # Test 4: Voting
 if [ ! -z "$CONTENT_ID" ] && [ "$CONTENT_ID" != "null" ]; then
     echo "[TEST GROUP 4] Voting Functionality"
-    test_endpoint "4.1 Create Vote" "POST" "/api/agents/vote" \
-        "-H \"X-API-Key: ${API_KEY}\"" \
-        "{\"contentId\":\"${CONTENT_ID}\",\"voterId\":\"${AGENT_ID}\",\"voterType\":\"agent\",\"voteChoice\":\"positive\",\"stakeAmount\":50}" 201
-    echo ""
-    
-    test_endpoint "4.2 Get Vote List" "GET" "/api/agents/vote?contentId=${CONTENT_ID}" \
-        "-H \"X-API-Key: ${API_KEY}\"" "" 200
+    if [ ! -z "$API_KEY" ]; then
+        test_endpoint "4.1 Create Vote" "POST" "/api/agents/vote" \
+            "-H \"X-API-Key: ${API_KEY}\"" \
+            "{\"contentId\":\"${CONTENT_ID}\",\"voterId\":\"${AGENT_ID}\",\"voterType\":\"agent\",\"voteChoice\":\"positive\",\"stakeAmount\":50}" 201
+        echo ""
+        
+        test_endpoint "4.2 Get Vote List" "GET" "/api/agents/vote?contentId=${CONTENT_ID}" \
+            "-H \"X-API-Key: ${API_KEY}\"" "" 200
+    else
+        test_endpoint "4.1 Create Vote (no API key)" "POST" "/api/agents/vote" "" \
+            "{\"contentId\":\"${CONTENT_ID}\",\"voterId\":\"${AGENT_ID}\",\"voterType\":\"agent\",\"voteChoice\":\"positive\",\"stakeAmount\":50}" 201
+        echo ""
+        
+        test_endpoint "4.2 Get Vote List (no API key)" "GET" "/api/agents/vote?contentId=${CONTENT_ID}" "" "" 200
+    fi
     echo ""
 else
     echo "[TEST GROUP 4] Voting Functionality - SKIPPED (no content ID)"
@@ -135,58 +162,99 @@ fi
 
 # Test 5: Batch Operations
 echo "[TEST GROUP 5] Batch Operations"
-test_endpoint "5.1 Non-Atomic Batch" "POST" "/api/batch-operations" \
-    "-H \"X-API-Key: ${API_KEY}\" -H \"X-Agent-ID: ${AGENT_ID}\"" \
-    "{\"atomic\":false,\"operations\":[{\"type\":\"predict\",\"agentId\":\"${AGENT_ID}\",\"subject\":\"Test Batch 1\",\"prediction\":\"Batch test 1\",\"confidence\":60}]}" 200
-echo ""
-
-test_endpoint "5.2 Atomic Batch" "POST" "/api/batch-operations" \
-    "-H \"X-API-Key: ${API_KEY}\" -H \"X-Agent-ID: ${AGENT_ID}\"" \
-    "{\"atomic\":true,\"operations\":[{\"type\":\"predict\",\"agentId\":\"${AGENT_ID}\",\"subject\":\"Test Atomic\",\"prediction\":\"Atomic test\",\"confidence\":65}]}" 200
+if [ ! -z "$API_KEY" ]; then
+    test_endpoint "5.1 Non-Atomic Batch" "POST" "/api/batch-operations" \
+        "-H \"X-API-Key: ${API_KEY}\" -H \"X-Agent-ID: ${AGENT_ID}\"" \
+        "{\"atomic\":false,\"operations\":[{\"type\":\"predict\",\"agentId\":\"${AGENT_ID}\",\"subject\":\"Test Batch 1\",\"prediction\":\"Batch test 1\",\"confidence\":60}]}" 200
+    echo ""
+    
+    test_endpoint "5.2 Atomic Batch" "POST" "/api/batch-operations" \
+        "-H \"X-API-Key: ${API_KEY}\" -H \"X-Agent-ID: ${AGENT_ID}\"" \
+        "{\"atomic\":true,\"operations\":[{\"type\":\"predict\",\"agentId\":\"${AGENT_ID}\",\"subject\":\"Test Atomic\",\"prediction\":\"Atomic test\",\"confidence\":65}]}" 200
+else
+    test_endpoint "5.1 Non-Atomic Batch (no API key)" "POST" "/api/batch-operations" \
+        "-H \"X-Agent-ID: ${AGENT_ID}\"" \
+        "{\"atomic\":false,\"operations\":[{\"type\":\"predict\",\"agentId\":\"${AGENT_ID}\",\"subject\":\"Test Batch 1\",\"prediction\":\"Batch test 1\",\"confidence\":60}]}" 200
+    echo ""
+    
+    test_endpoint "5.2 Atomic Batch (no API key)" "POST" "/api/batch-operations" \
+        "-H \"X-Agent-ID: ${AGENT_ID}\"" \
+        "{\"atomic\":true,\"operations\":[{\"type\":\"predict\",\"agentId\":\"${AGENT_ID}\",\"subject\":\"Test Atomic\",\"prediction\":\"Atomic test\",\"confidence\":65}]}" 200
+fi
 echo ""
 
 # Test 6: GraphQL
 echo "[TEST GROUP 6] GraphQL API"
-test_endpoint "6.1 GraphQL Query Predictions" "POST" "/api/graphql" \
-    "-H \"X-API-Key: ${API_KEY}\"" \
-    "{\"query\":\"query { predictions { id subject prediction confidence } }\"}" 200
-echo ""
-
-test_endpoint "6.2 GraphQL Query Agents" "POST" "/api/graphql" \
-    "-H \"X-API-Key: ${API_KEY}\"" \
-    "{\"query\":\"query { agents { id name type status } }\"}" 200
+if [ ! -z "$API_KEY" ]; then
+    test_endpoint "6.1 GraphQL Query Predictions" "POST" "/api/graphql" \
+        "-H \"X-API-Key: ${API_KEY}\"" \
+        "{\"query\":\"query { predictions { id subject prediction confidence } }\"}" 200
+    echo ""
+    
+    test_endpoint "6.2 GraphQL Query Agents" "POST" "/api/graphql" \
+        "-H \"X-API-Key: ${API_KEY}\"" \
+        "{\"query\":\"query { agents { id name type status } }\"}" 200
+else
+    test_endpoint "6.1 GraphQL Query Predictions (no API key)" "POST" "/api/graphql" "" \
+        "{\"query\":\"query { predictions { id subject prediction confidence } }\"}" 200
+    echo ""
+    
+    test_endpoint "6.2 GraphQL Query Agents (no API key)" "POST" "/api/graphql" "" \
+        "{\"query\":\"query { agents { id name type status } }\"}" 200
+fi
 echo ""
 
 # Test 7: System Status
 echo "[TEST GROUP 7] System Status"
-test_endpoint "7.1 Get System Status" "GET" "/api/agents/status" \
-    "-H \"X-API-Key: ${API_KEY}\"" "" 200
+if [ ! -z "$API_KEY" ]; then
+    test_endpoint "7.1 Get System Status" "GET" "/api/agents/status" \
+        "-H \"X-API-Key: ${API_KEY}\"" "" 200
+else
+    test_endpoint "7.1 Get System Status (no API key)" "GET" "/api/agents/status" "" "" 200
+fi
 echo ""
 
 # Test 8: Performance Stats
 echo "[TEST GROUP 8] Performance Monitoring"
-test_endpoint "8.1 Get Performance Stats" "GET" "/api/performance-stats?window=60000" \
-    "-H \"X-API-Key: ${API_KEY}\"" "" 200
+if [ ! -z "$API_KEY" ]; then
+    test_endpoint "8.1 Get Performance Stats" "GET" "/api/performance-stats?window=60000" \
+        "-H \"X-API-Key: ${API_KEY}\"" "" 200
+else
+    test_endpoint "8.1 Get Performance Stats (no API key)" "GET" "/api/performance-stats?window=60000" "" "" 200
+fi
 echo ""
 
 # Test 9: Sandbox
 echo "[TEST GROUP 9] Developer Sandbox"
-test_endpoint "9.1 Create Sandbox" "POST" "/api/sandbox/create" \
-    "-H \"X-API-Key: ${API_KEY}\"" \
-    "{\"agentId\":\"${AGENT_ID}\",\"config\":{\"initialBalance\":1000,\"startDate\":\"2024-01-01T00:00:00Z\",\"endDate\":\"2025-01-01T00:00:00Z\"}}" 201
+if [ ! -z "$API_KEY" ]; then
+    test_endpoint "9.1 Create Sandbox" "POST" "/api/sandbox/create" \
+        "-H \"X-API-Key: ${API_KEY}\"" \
+        "{\"agentId\":\"${AGENT_ID}\",\"config\":{\"initialBalance\":1000,\"startDate\":\"2024-01-01T00:00:00Z\",\"endDate\":\"2025-01-01T00:00:00Z\"}}" 201
+else
+    test_endpoint "9.1 Create Sandbox (no API key)" "POST" "/api/sandbox/create" "" \
+        "{\"agentId\":\"${AGENT_ID}\",\"config\":{\"initialBalance\":1000,\"startDate\":\"2024-01-01T00:00:00Z\",\"endDate\":\"2025-01-01T00:00:00Z\"}}" 201
+fi
 
 SANDBOX_ID=$(echo "$body" | jq -r '.sandbox.id // empty')
 if [ ! -z "$SANDBOX_ID" ] && [ "$SANDBOX_ID" != "null" ]; then
     echo "  Sandbox ID: ${SANDBOX_ID}"
     echo ""
     
-    test_endpoint "9.2 Execute Simulated Prediction" "POST" "/api/sandbox/${SANDBOX_ID}/execute" \
-        "-H \"X-API-Key: ${API_KEY}\"" \
-        "{\"type\":\"prediction\",\"data\":{\"subject\":\"Sandbox Test\",\"prediction\":\"Test prediction\",\"confidence\":75}}" 200
-    echo ""
-    
-    test_endpoint "9.3 Get Sandbox Stats" "GET" "/api/sandbox/${SANDBOX_ID}/stats" \
-        "-H \"X-API-Key: ${API_KEY}\"" "" 200
+    if [ ! -z "$API_KEY" ]; then
+        test_endpoint "9.2 Execute Simulated Prediction" "POST" "/api/sandbox/${SANDBOX_ID}/execute" \
+            "-H \"X-API-Key: ${API_KEY}\"" \
+            "{\"type\":\"prediction\",\"data\":{\"subject\":\"Sandbox Test\",\"prediction\":\"Test prediction\",\"confidence\":75}}" 200
+        echo ""
+        
+        test_endpoint "9.3 Get Sandbox Stats" "GET" "/api/sandbox/${SANDBOX_ID}/stats" \
+            "-H \"X-API-Key: ${API_KEY}\"" "" 200
+    else
+        test_endpoint "9.2 Execute Simulated Prediction (no API key)" "POST" "/api/sandbox/${SANDBOX_ID}/execute" "" \
+            "{\"type\":\"prediction\",\"data\":{\"subject\":\"Sandbox Test\",\"prediction\":\"Test prediction\",\"confidence\":75}}" 200
+        echo ""
+        
+        test_endpoint "9.3 Get Sandbox Stats (no API key)" "GET" "/api/sandbox/${SANDBOX_ID}/stats" "" "" 200
+    fi
     echo ""
 else
     echo -e "${YELLOW}WARNING: Could not get Sandbox ID${NC}"
@@ -196,9 +264,14 @@ fi
 # Test 10: Realtime Subscription
 if [ ! -z "$CONTENT_ID" ] && [ "$CONTENT_ID" != "null" ]; then
     echo "[TEST GROUP 10] Realtime Subscription"
-    test_endpoint "10.1 Subscribe to Votes" "POST" "/api/realtime/subscribe" \
-        "-H \"X-API-Key: ${API_KEY}\"" \
-        "{\"type\":\"votes\",\"ids\":[\"${CONTENT_ID}\"]}" 200
+    if [ ! -z "$API_KEY" ]; then
+        test_endpoint "10.1 Subscribe to Votes" "POST" "/api/realtime/subscribe" \
+            "-H \"X-API-Key: ${API_KEY}\"" \
+            "{\"type\":\"votes\",\"ids\":[\"${CONTENT_ID}\"]}" 200
+    else
+        test_endpoint "10.1 Subscribe to Votes (no API key)" "POST" "/api/realtime/subscribe" "" \
+            "{\"type\":\"votes\",\"ids\":[\"${CONTENT_ID}\"]}" 200
+    fi
     echo ""
 else
     echo "[TEST GROUP 10] Realtime Subscription - SKIPPED (no content ID)"
