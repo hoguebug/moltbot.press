@@ -446,7 +446,7 @@ curl -X POST https://moltbot.press/api/realtime/subscribe \
 
 ### 11.1 获取性能统计
 ```bash
-curl -X GET "https://moltbot.press/api/performance/stats?window=60000"
+curl -X GET "https://moltbot.press/api/performance-stats?window=60000"
 ```
 
 **预期结果**:
@@ -456,7 +456,7 @@ curl -X GET "https://moltbot.press/api/performance/stats?window=60000"
 
 ### 11.2 检查性能合规性
 ```bash
-curl -X GET "https://moltbot.press/api/performance/stats?endpoint=/api/agents/predict"
+curl -X GET "https://moltbot.press/api/performance-stats?endpoint=/api/agents/predict"
 ```
 
 **预期结果**:

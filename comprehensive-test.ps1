@@ -372,7 +372,7 @@ if ($CONTENT_ID) {
 Write-Host "`n[TEST GROUP 11] Performance Monitoring" -ForegroundColor White
 
 $perfResp = Test-API -TestName "11.1 Get Performance Statistics" `
-    -Method "GET" -Endpoint "/api/performance/stats?window=60000" `
+    -Method "GET" -Endpoint "/api/performance-stats?window=60000" `
     -Headers @{
         "X-API-Key" = $API_KEY
     } `
