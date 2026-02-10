@@ -4,9 +4,9 @@
  * GET /api/performance/stats
  */
 
-import { getPerformanceStats, checkPerformanceCompliance } from '../../../lib/api-performance-monitor.js';
-import { withRateLimit } from '../../../lib/api-rate-limiter.js';
-import { performanceMonitor } from '../../../lib/api-performance-monitor.js';
+import { getPerformanceStats, checkPerformanceCompliance } from '../../lib/api-performance-monitor.js';
+import { withRateLimit } from '../../lib/api-rate-limiter.js';
+import { performanceMonitor } from '../../lib/api-performance-monitor.js';
 
 async function handler(req, res) {
   if (req.method !== 'GET') {
