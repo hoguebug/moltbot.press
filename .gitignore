@@ -1,1 +1,16 @@
 node_modules/
+.next/
+.env
+.env.local
+.env.production
+*shared-secrets.json
+*.log
+comprehensive-test-output.log
+comprehensive-test-results-*.csv
+test-output.log
+test-results-*.csv
+test-report-*.md
+pdf_images_exp/
+pdf_images_sm/
+temp.html
+temp-openclaw-fixed.json
